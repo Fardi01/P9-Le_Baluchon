@@ -7,23 +7,26 @@
 
 import UIKit
 
-class ExchangeViewController: UIViewController {
+class ExchangeViewController: UIViewController, UITextFieldDelegate {
 
+    @IBOutlet weak var eurosTextfield: UITextField!
+    @IBOutlet weak var dollarLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
-    */
 
+    @IBAction func dismissKeyboard(_ sender: UITapGestureRecognizer) {
+        eurosTextfield.resignFirstResponder()
+    }
+    
 }
+
+
+// ⚠️ Si la conversion se fait automatiquement, laisser bouton return du clavier cacher le clavier, si non utiliser le bouton pour lancer la conversion. 
