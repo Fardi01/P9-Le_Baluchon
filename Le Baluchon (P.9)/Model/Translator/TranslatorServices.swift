@@ -9,6 +9,7 @@ import Foundation
 
 let key = "AIzaSyCg0w8C-0jkiJrczgul2LJNXPa79FtS8hE"
 
+var textTranslated: String = ""
 
 class TranslateService {
     
@@ -20,7 +21,7 @@ class TranslateService {
     }
     
     
-    func getTranslation(urlString: String, completion: @escaping (Result<TranslationResponse,APIError>) -> Void){
+    func getTranslation(urlString: String, source: String, completion: @escaping (Result<TranslationResponse,APIError>) -> Void){
         
         guard let url = URL(string: urlString) else {
             completion(.failure(.error(_errorString: "Error: Invalid URL")))
@@ -51,7 +52,9 @@ class TranslateService {
                     return
                 }
                 completion(.success(responseJSON))
-                print(responseJSON)
+                //print(responseJSON)
+                textTranslated.append(responseJSON.data.translations[0].translatedText)
+                print(textTranslated)
             }
         }
         task.resume()

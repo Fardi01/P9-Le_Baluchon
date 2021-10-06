@@ -17,14 +17,17 @@ class TranslatorViewController: UIViewController, UITextFieldDelegate {
     
     static var text: String = "Hello_you"
     
+    
     // Faire un sitch pour changer la langue source et la langue cible
     
     let translatorUrl = "https://translation.googleapis.com/language/translate/v2?q=\(text)&target=fr&format=text&source=en&model=base&key=AIzaSyCg0w8C-0jkiJrczgul2LJNXPa79FtS8hE"
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        var myThin = textToTranslateTextfield.text
 
-        TranslateService.shared.getTranslation(urlString: translatorUrl) { [self] (result: Result<TranslationResponse,TranslateService.APIError>) in
+        TranslateService.shared.getTranslation(urlString: translatorUrl, source: textToTranslateTextfield.text ?? "Hello") { [self] (result: Result<TranslationResponse,TranslateService.APIError>) in
             switch result {
             case .success(let response):
                 self.translate(response: response)
@@ -54,7 +57,8 @@ class TranslatorViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func translate(response: TranslationResponse) {
-        self.texteWasTranslatedLabel.text = TranslationResponse.Data.Translations.init(translatedText: "").translatedText
+        self.texteWasTranslatedLabel.text = response.data.translations[0].translatedText
+        
     }
     
     private func presentAlert(with error: String) {
