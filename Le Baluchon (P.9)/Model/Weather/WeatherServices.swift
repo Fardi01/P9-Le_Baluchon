@@ -16,6 +16,13 @@ class WeatherServices {
         case error(_errorString: String)
     }
     
+    private var task: URLSessionDataTask?
+    
+    private var session = URLSession(configuration: .default)
+    init(session: URLSession) {
+        self.session = session
+    }
+    
     func getWeather(urlString: String, completion: @escaping (Result<Response,APIError>) -> Void) {
         
         guard let url = URL(string: urlString) else {
@@ -24,9 +31,9 @@ class WeatherServices {
         }
         
         let request = URLRequest(url: url)
-        let session = URLSession(configuration: .default)
         
-        let task = session.dataTask(with: request) { data, response, error in
+        task?.cancel()
+        task = session.dataTask(with: request) { data, response, error in
             
             DispatchQueue.main.async {
                 
@@ -51,7 +58,7 @@ class WeatherServices {
             }
             
         }
-        task.resume()
+        task?.resume()
     }
     
 }

@@ -13,6 +13,7 @@ var textTranslated: String = ""
 
 class TranslateService {
     
+    // Pattern Singleton
     static let shared = TranslateService()
     private init() {}
     
@@ -20,6 +21,7 @@ class TranslateService {
         case error(_errorString: String)
     }
     
+    private var task: URLSessionDataTask?
     
     func getTranslation(urlString: String, source: String, completion: @escaping (Result<TranslationResponse,APIError>) -> Void){
         
@@ -32,8 +34,9 @@ class TranslateService {
         request.httpMethod = "POST"
         request.setValue("application/Json", forHTTPHeaderField: "Content-Type")
         
+        task?.cancel()
         let session = URLSession(configuration: .default)
-        let task = session.dataTask(with: request) { data, response, error in
+        task = session.dataTask(with: request) { data, response, error in
             
             DispatchQueue.main.async {
                 
@@ -57,6 +60,6 @@ class TranslateService {
                 print(textTranslated)
             }
         }
-        task.resume()
+        task?.resume()
     }
 }

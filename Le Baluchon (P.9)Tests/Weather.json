@@ -1,0 +1,43 @@
+{
+    "coord": {
+        "lon": 7.743,
+        "lat": 48.5834
+    },
+    "weather": [
+        {
+            "id": 800,
+            "main": "Clear",
+            "description": "ciel dégagé",
+            "icon": "01d"
+        }
+    ],
+    "base": "stations",
+    "main": {
+        "temp": 17.52,
+        "feels_like": 16.69,
+        "temp_min": 15.84,
+        "temp_max": 18.58,
+        "pressure": 1025,
+        "humidity": 52
+    },
+    "visibility": 10000,
+    "wind": {
+        "speed": 6.17,
+        "deg": 20
+    },
+    "clouds": {
+        "all": 0
+    },
+    "dt": 1633788274,
+    "sys": {
+        "type": 1,
+        "id": 6595,
+        "country": "FR",
+        "sunrise": 1633757996,
+        "sunset": 1633798339
+    },
+    "timezone": 7200,
+    "id": 2973783,
+    "name": "Strasbourg",
+    "cod": 200
+}

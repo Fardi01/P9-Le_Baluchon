@@ -24,8 +24,6 @@ class TranslatorViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        var myThin = textToTranslateTextfield.text
 
         TranslateService.shared.getTranslation(urlString: translatorUrl, source: textToTranslateTextfield.text ?? "Hello") { [self] (result: Result<TranslationResponse,TranslateService.APIError>) in
             switch result {
