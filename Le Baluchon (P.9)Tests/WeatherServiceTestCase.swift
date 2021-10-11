@@ -11,10 +11,19 @@ import XCTest
 class WeatherServiceTestCase: XCTestCase {
     func testGetWeatherShouldPostFailedCallbackIfError() {
         // Given
+        let weatherService = WeatherServices(
+            session: URLSessionFake(data: nil, response: nil, error: FakeWeatherResponseData.error))
         
         // When
+        let expectation = XCTestExpectation(description: "wait for queue change.")
+        weatherService.getWeather(urlString: "https://openclassrooms.com") { response in
+            // Then
+            XCTAssertNil(response)
+            expectation.fulfill()
+        }
         
-        // Then
+        wait(for: [expectation], timeout: 0.01)
+        
     }
 
 }

@@ -7,12 +7,7 @@
 
 import Foundation
 
-let key = "AIzaSyCg0w8C-0jkiJrczgul2LJNXPa79FtS8hE"
-
-var textTranslated: String = ""
-
 class TranslateService {
-    
     // Pattern Singleton
     static let shared = TranslateService()
     private init() {}
@@ -47,12 +42,12 @@ class TranslateService {
                     return
                 }
                 completion(.success(responseJSON))
-                textTranslated.append(responseJSON.data.translations[0].translatedText)
-                print(textTranslated)
             }
         }
         task?.resume()
     }
+    
+    // MARK: - Private Func
     
     private func createTranslateRequest(text: String) -> URLRequest {
         let baseURLString = "https://translation.googleapis.com/language/translate/v2"

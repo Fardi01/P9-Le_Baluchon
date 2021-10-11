@@ -17,10 +17,6 @@ struct TranslationResponse: Codable {
     let data : Data
 }
 
-//struct test: Codable {
-//    let datas: TranslationResponse.Data.Translations
-//}
-
 // MARK: - Json Response
 
 //

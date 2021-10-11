@@ -52,10 +52,7 @@ class WeatherServices {
                     return
                 }
                 completion(.success(responseJSON))
-                print(responseJSON)
-                
             }
-            
         }
         task?.resume()
     }

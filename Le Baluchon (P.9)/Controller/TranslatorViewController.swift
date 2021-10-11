@@ -75,5 +75,5 @@ extension TranslatorViewController {
 }
 
 
-#warning("<#T##message###>")
-// A implementer : En affichant la vue, la vue du hello world est caché, dès que je clique sur le textFiel, la vue du hello world apparait. 
+#warning("Gérer l'échange de traduction Français -> Anglais et Anglais -> Francais")
+#warning("Gérer la customisation du textField")
