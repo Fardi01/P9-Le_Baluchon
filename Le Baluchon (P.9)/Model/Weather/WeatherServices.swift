@@ -32,7 +32,6 @@ class WeatherServices {
         
         let request = URLRequest(url: url)
         
-        task?.cancel()
         task = session.dataTask(with: request) { data, response, error in
             
             DispatchQueue.main.async {

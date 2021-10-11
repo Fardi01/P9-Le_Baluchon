@@ -23,18 +23,10 @@ class TranslateService {
     
     private var task: URLSessionDataTask?
     
-    func getTranslation(urlString: String, source: String, completion: @escaping (Result<TranslationResponse,APIError>) -> Void){
+    func getTranslation(for text: String, completion: @escaping (Result<TranslationResponse,APIError>) -> Void){
         
-        guard let url = URL(string: urlString) else {
-            completion(.failure(.error(_errorString: "Error: Invalid URL")))
-            return
-        }
+        let request = createTranslateRequest(text: text)
         
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/Json", forHTTPHeaderField: "Content-Type")
-        
-        task?.cancel()
         let session = URLSession(configuration: .default)
         task = session.dataTask(with: request) { data, response, error in
             
@@ -55,11 +47,23 @@ class TranslateService {
                     return
                 }
                 completion(.success(responseJSON))
-                //print(responseJSON)
                 textTranslated.append(responseJSON.data.translations[0].translatedText)
                 print(textTranslated)
             }
         }
         task?.resume()
+    }
+    
+    private func createTranslateRequest(text: String) -> URLRequest {
+        let baseURLString = "https://translation.googleapis.com/language/translate/v2"
+        var components = URLComponents(string: baseURLString)!
+        let urlParams = ["q": text, "target": "en", "format": "text", "source": "fr", "model": "base", "key": "AIzaSyCg0w8C-0jkiJrczgul2LJNXPa79FtS8hE"]
+        components.queryItems = urlParams.map { URLQueryItem(name: $0.key, value: String(describing: $0.value)) }
+        var request = URLRequest(url: URL(string: baseURLString)!)
+        request.url = components.url
+        
+        request.httpMethod = "POST"
+        request.setValue("application/Json", forHTTPHeaderField: "Content-Type")
+        return request
     }
 }
