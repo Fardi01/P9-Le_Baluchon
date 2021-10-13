@@ -16,9 +16,9 @@ class WeatherServiceTestCase: XCTestCase {
         
         // When
         let expectation = XCTestExpectation(description: "wait for queue change.")
-        weatherService.getWeather(urlString: "https://openclassrooms.com") { response in
+        weatherService.getWeather(urlString: "https://openclassrooms.com") { (response) in
             // Then
-            XCTAssertNil(response)
+            XCTAssertNotNil(response)
             expectation.fulfill()
         }
         

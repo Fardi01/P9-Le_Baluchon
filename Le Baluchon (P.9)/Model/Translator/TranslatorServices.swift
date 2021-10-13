@@ -42,6 +42,7 @@ class TranslateService {
                     return
                 }
                 completion(.success(responseJSON))
+                
             }
         }
         task?.resume()

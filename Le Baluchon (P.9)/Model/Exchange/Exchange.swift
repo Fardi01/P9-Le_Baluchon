@@ -11,10 +11,11 @@ import Foundation
 struct ExchangeResponse: Codable {
     
     let base: String
+    var rates: Rates
     
     struct Rates: Codable {
-        let EUR: Double
-        let USD: Double
+        var EUR: Double
+        var USD: Double
     }
 }
 
