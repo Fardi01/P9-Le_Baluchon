@@ -19,10 +19,26 @@ class ExchangeViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        makeAPICall()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        //textField.resignFirstResponder()
+        makeAPICall()
+        return true
+    }
+
+    @IBAction func dismissKeyboard(_ sender: UITapGestureRecognizer) {
+        eurosTextfield.resignFirstResponder()
+    }
+    
+}
+
+
+// MARK: - Call API Functions
+
+extension ExchangeViewController {
+    
+    private func makeAPICall() {
         ExchangeService.shared.getExchange { (result: Result<ExchangeResponse,ExchangeService.APIError>) in
             switch result {
             case .success(let success):
@@ -31,37 +47,38 @@ class ExchangeViewController: UIViewController, UITextFieldDelegate {
                 self.presentAlert(with: failure.localizedDescription)
             }
         }
-        return true
     }
+    
     
     private func currencyChange(response: ExchangeResponse) {
         selectedCurrency = response.rates.EUR
         expectedValue = response.rates.USD
-        inputValue = Double(eurosTextfield.text!)!
+        inputValue = Double(eurosTextfield.text!) ?? 1.00
         
-        
-        let conversion = (inputValue * expectedValue / selectedCurrency)
-        
+        var conversion = (inputValue * expectedValue / selectedCurrency)
+        conversion = round(conversion * 100) / 100
         
         if eurosTextfield.text != "" {
             dollarLabel.text = String(conversion)
-            //dollarLabel.text = String(format: "%.2f")
+        } else {
+            var USDRate = response.rates.USD
+            USDRate = round(USDRate * 100) / 100
+            dollarLabel.text = String(USDRate)
         }
-        print(conversion)
     }
+}
 
-    @IBAction func dismissKeyboard(_ sender: UITapGestureRecognizer) {
-        eurosTextfield.resignFirstResponder()
-    }
-    
+
+
+// MARK: - Present UIAlert
+
+extension ExchangeViewController {
     
     private func presentAlert(with error: String) {
         let alertVC = UIAlertController.init(title: "Une erreur est survenue", message: error, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(alertVC, animated: true, completion: nil)
     }
-    
 }
 
-
-// ⚠️ Si la conversion se fait automatiquement, laisser bouton return du clavier cacher le clavier, si non utiliser le bouton pour lancer la conversion. 
+#warning("Chercher comment supprimer en même temps le nombre converti")

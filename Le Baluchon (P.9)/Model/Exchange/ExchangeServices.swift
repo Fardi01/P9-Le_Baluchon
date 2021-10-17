@@ -11,9 +11,6 @@ class ExchangeService {
     static let shared = ExchangeService()
     private init() {}
     
-    var currencies = [String]()
-    var rates = [String]()
-    
     enum APIError: Error {
         case error(_errorString: String)
     }

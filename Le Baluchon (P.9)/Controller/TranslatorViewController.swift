@@ -28,12 +28,11 @@ class TranslatorViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func dismissKeyboard(_ sender: UITapGestureRecognizer) {
         textToTranslateTextfield.resignFirstResponder()
-        
     }
     
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        //textField.resignFirstResponder()
         makeAPICall()
         return true
     }
@@ -52,13 +51,15 @@ extension TranslatorViewController {
             case .failure(let error):
             presentAlert(with: error.localizedDescription)
             }
-            
         }
     }
     
     private func translate(response: TranslationResponse) {
-        self.texteWasTranslatedLabel.text = response.data.translations[0].translatedText
-        
+        if textToTranslateTextfield.text != "" {
+            self.texteWasTranslatedLabel.text = response.data.translations[0].translatedText
+        } else {
+            texteWasTranslatedLabel.text = ""
+        }
     }
     
 }
@@ -76,4 +77,4 @@ extension TranslatorViewController {
 
 
 #warning("Gérer l'échange de traduction Français -> Anglais et Anglais -> Francais")
-#warning("Gérer la customisation du textField")
+#warning("Chercher comment supprimer le texte en même temps sur le texte traduit")

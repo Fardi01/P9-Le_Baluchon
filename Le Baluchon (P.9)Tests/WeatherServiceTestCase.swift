@@ -9,6 +9,8 @@ import XCTest
 @testable import Le_Baluchon__P_9_
 
 class WeatherServiceTestCase: XCTestCase {
+    
+    // Je teste que il y'a une erreur (Et que j'ai le call back d'erreur)
     func testGetWeatherShouldPostFailedCallbackIfError() {
         // Given
         let weatherService = WeatherServices(
@@ -16,9 +18,10 @@ class WeatherServiceTestCase: XCTestCase {
         
         // When
         let expectation = XCTestExpectation(description: "wait for queue change.")
-        weatherService.getWeather(urlString: "https://openclassrooms.com") { (response) in
+        weatherService.getWeather(urlString: "https://openclassroom.com") { (response) in
             // Then
-            XCTAssertNotNil(response)
+            XCTAssertNil(response)
+            //XCTAssertNotNil(response)
             expectation.fulfill()
         }
         

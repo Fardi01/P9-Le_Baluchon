@@ -26,6 +26,7 @@ class FakeWeatherResponseData {
         statusCode: 500, httpVersion: nil, headerFields: nil)!
     
     // MARK: - Error
-    class QuoteError: Error{}
-    static let error = QuoteError()
+    class WeatherError: Error{}
+    static let error = WeatherError()
+    
 }
