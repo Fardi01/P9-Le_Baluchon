@@ -357,8 +357,8 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Traducteur" image="text.bubble.fill" catalog="system" id="lhl-Sc-lIa"/>
                     <connections>
-                        <outlet property="englishLabel" destination="r8K-14-VFm" id="3EI-WX-AGL"/>
-                        <outlet property="frenchLabel" destination="eH7-Dd-0Wh" id="bIj-0q-Q45"/>
+                        <outlet property="leftSideLabel" destination="eH7-Dd-0Wh" id="bIj-0q-Q45"/>
+                        <outlet property="rightSideLabel" destination="r8K-14-VFm" id="3EI-WX-AGL"/>
                         <outlet property="textToTranslateTextfield" destination="wfR-Vt-Par" id="1LP-el-9Q9"/>
                         <outlet property="texteWasTranslatedLabel" destination="gXV-g7-R1z" id="Rbj-W7-IpH"/>
                     </connections>

@@ -9,11 +9,13 @@ import UIKit
 
 class TranslatorViewController: UIViewController, UITextFieldDelegate {
 
-    @IBOutlet weak var frenchLabel: UILabel!
-    @IBOutlet weak var englishLabel: UILabel!
+    @IBOutlet weak var leftSideLabel: UILabel!
+    @IBOutlet weak var rightSideLabel: UILabel!
     
     @IBOutlet weak var textToTranslateTextfield: UITextField!
     @IBOutlet weak var texteWasTranslatedLabel: UILabel!
+    
+    var reverseButtonIsTapped: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +24,7 @@ class TranslatorViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Buttons Action
     
     @IBAction func reverseButtonTapped(_ sender: UIButton) {
-        // Modifier le sens de la traduction 
+        manageReverseButton()
     }
     
     
@@ -32,9 +34,20 @@ class TranslatorViewController: UIViewController, UITextFieldDelegate {
     
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        //textField.resignFirstResponder()
         makeAPICall()
         return true
+    }
+    
+    private func manageReverseButton() {
+        if reverseButtonIsTapped {
+            reverseButtonIsTapped = false
+            leftSideLabel.text = "Français"
+            rightSideLabel.text = "Anglais"
+        } else {
+            reverseButtonIsTapped = true
+            leftSideLabel.text = "Anglais"
+            rightSideLabel.text = "Français"
+        }
     }
     
 }
@@ -44,12 +57,12 @@ class TranslatorViewController: UIViewController, UITextFieldDelegate {
 extension TranslatorViewController {
     
     private func makeAPICall() {
-        TranslateService.shared.getTranslation(for: textToTranslateTextfield.text ?? "") { [self] (result: Result<TranslationResponse,TranslateService.APIError>) in
+        TranslateService.shared.getTranslation(for: textToTranslateTextfield.text ?? "") { [self] (result) in
             switch result {
-            case .success(let response):
+            case .some(let response):
                 self.translate(response: response)
-            case .failure(let error):
-            presentAlert(with: error.localizedDescription)
+            case .none:
+            presentAlert()
             }
         }
     }
@@ -68,8 +81,8 @@ extension TranslatorViewController {
 
 extension TranslatorViewController {
     
-    private func presentAlert(with error: String) {
-        let alertVC = UIAlertController.init(title: "Une erreur est survenue", message: error, preferredStyle: .alert)
+    private func presentAlert() {
+        let alertVC = UIAlertController.init(title: "Une erreur est survenue", message: "error de chargement", preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(alertVC, animated: true, completion: nil)
     }

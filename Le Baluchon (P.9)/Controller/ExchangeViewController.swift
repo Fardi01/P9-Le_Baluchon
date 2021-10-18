@@ -39,12 +39,12 @@ class ExchangeViewController: UIViewController, UITextFieldDelegate {
 extension ExchangeViewController {
     
     private func makeAPICall() {
-        ExchangeService.shared.getExchange { (result: Result<ExchangeResponse,ExchangeService.APIError>) in
+        ExchangeService.shared.getExchange { (result) in
             switch result {
-            case .success(let success):
+            case .some(let success):
                 self.currencyChange(response: success)
-            case .failure(let failure):
-                self.presentAlert(with: failure.localizedDescription)
+            case .none :
+                self.presentAlert()
             }
         }
     }
@@ -74,8 +74,8 @@ extension ExchangeViewController {
 
 extension ExchangeViewController {
     
-    private func presentAlert(with error: String) {
-        let alertVC = UIAlertController.init(title: "Une erreur est survenue", message: error, preferredStyle: .alert)
+    private func presentAlert() {
+        let alertVC = UIAlertController.init(title: "Une erreur est survenue", message: "error de chargement", preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(alertVC, animated: true, completion: nil)
     }

@@ -37,20 +37,20 @@ class WeatherViewController: UIViewController {
 extension WeatherViewController {
     
     private func weatherUpdate() {
-        WeatherServices.shared.getWeather(urlString: newYorkWeatherURL) { (result: Result<Response,WeatherServices.APIError>) in
+        WeatherServices.shared.getWeather(urlString: newYorkWeatherURL) { (result) in
             switch result {
-            case .success(let response):
+            case .some(let response):
                 self.updateNYC(response: response)
-            case .failure(let error):
-                self.presentAlert(with: error.localizedDescription)
+            case .none :
+                self.presentAlert()
             }
         }
-        WeatherServices.shared.getWeather(urlString: STRGWeatherURL) { (result: Result<Response,WeatherServices.APIError>) in
+        WeatherServices.shared.getWeather(urlString: STRGWeatherURL) { (result) in
             switch result {
-            case .success(let response):
+            case .some(let response):
                 self.updateSTRG(response: response)
-            case .failure(let error):
-                self.presentAlert(with: error.localizedDescription)
+            case .none:
+                self.presentAlert()
             }
         }
     }
@@ -59,7 +59,7 @@ extension WeatherViewController {
 
 extension WeatherViewController {
     
-    private func updateNYC(response: Response) {
+    private func updateNYC(response: WeatherResponse) {
         self.descriptionNYC.text = response.weather[0].description.capitalizingFirstLetter()
         self.temperatureNYC.text = "\(Int(response.main.temperature.rounded()))°C"
         self.ressentiTemp.text = "\(Int(response.main.feelsLike.rounded()))°"
@@ -71,15 +71,15 @@ extension WeatherViewController {
         }
     }
     
-    private func updateSTRG(response: Response) {
+    private func updateSTRG(response: WeatherResponse) {
         self.descriptionSTRG.text = response.weather[0].description.capitalizingFirstLetter()
         self.temperatureSTRG.text = "\(Int(response.main.temperature.rounded()))°C"
         self.tempMinSTRG.text = "Min.\(Int(response.main.tempMin.rounded()))°"
         self.tempMaxSTRG.text = "Max.\(Int(response.main.tempMax.rounded()))°"
     }
 
-    private func presentAlert(with error: String) {
-        let alertVC = UIAlertController.init(title: "Une erreur est survenue", message: error, preferredStyle: .alert)
+    private func presentAlert() {
+        let alertVC = UIAlertController.init(title: "Une erreur est survenue", message: "error de chargement", preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(alertVC, animated: true, completion: nil)
     }

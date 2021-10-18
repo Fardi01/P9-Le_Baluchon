@@ -23,10 +23,11 @@ class WeatherServices {
         self.session = session
     }
     
-    func getWeather(urlString: String, completion: @escaping (Result<Response,APIError>) -> Void) {
+    func getWeather(urlString: String, completion: @escaping (_ result: WeatherResponse?) -> Void) {
         
         guard let url = URL(string: urlString) else {
-            completion(.failure(.error(_errorString: "Error: Invalid URL")))
+            //completion(.failure(.error(_errorString: "Error: Invalid URL")))
+            completion(.none)
             return
         }
         
@@ -38,20 +39,24 @@ class WeatherServices {
                 
                 
                 guard let data = data, error == nil else {
-                    completion(.failure(.error(_errorString: "Error: data corrupt")))
+                    //completion(.failure(.error(_errorString: "Error: data corrupt")))
+                    completion(.none)
                     return
                 }
                 
                 guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                    completion(.failure(.error(_errorString: "Error: Response corrupt")))
+                    //completion(.failure(.error(_errorString: "Error: Response corrupt")))
+                    completion(.none)
                     return
                 }
                 
-                guard let responseJSON = try? JSONDecoder().decode(Response.self, from: data) else {
-                    completion(.failure(.error(_errorString: "Error: ResponseJson corrupt")))
+                guard let responseJSON = try? JSONDecoder().decode(WeatherResponse.self, from: data) else {
+                    //completion(.failure(.error(_errorString: "Error: ResponseJson corrupt")))
+                    completion(.none)
                     return
                 }
-                completion(.success(responseJSON))
+                //completion(.success(responseJSON))
+                completion(.some(responseJSON))
             }
         }
         task?.resume()

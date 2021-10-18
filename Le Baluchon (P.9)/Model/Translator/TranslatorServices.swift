@@ -16,9 +16,19 @@ class TranslateService {
         case error(_errorString: String)
     }
     
+    enum ReverseLanguage {
+        case target(to: String)
+        case source(from: String)
+    }
+    
     private var task: URLSessionDataTask?
     
-    func getTranslation(for text: String, completion: @escaping (Result<TranslationResponse,APIError>) -> Void){
+    private var session = URLSession(configuration: .default)
+    init(session: URLSession) {
+        self.session = session
+    }
+    
+    func getTranslation(for text: String, completion: @escaping (_ result: TranslationResponse?) -> Void){
         
         let request = createTranslateRequest(text: text)
         
@@ -28,20 +38,24 @@ class TranslateService {
             DispatchQueue.main.async {
                 
                 guard let data = data, error == nil else {
-                    completion(.failure(.error(_errorString: "Error: data corrupt")))
+                    completion(.none)
+                    //completion(.failure(.error(_errorString: "Error: data corrupt")))
                     return
                 }
                 
                 guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                    completion(.failure(.error(_errorString: "Error: response corrupt")))
+                    completion(.none)
+                    //completion(.failure(.error(_errorString: "Error: response corrupt")))
                     return
                 }
                 
                 guard let responseJSON = try? JSONDecoder().decode(TranslationResponse.self, from: data) else {
-                    completion(.failure(.error(_errorString: "Error: responseJson corrupt")))
+                    completion(.none)
+                    //completion(.failure(.error(_errorString: "Error: responseJson corrupt")))
                     return
                 }
-                completion(.success(responseJSON))
+                completion(.some(responseJSON))
+                //completion(.success(responseJSON))
                 
             }
         }

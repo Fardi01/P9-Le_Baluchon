@@ -21,7 +21,7 @@ class ExchangeService {
     
     private var task: URLSessionDataTask?
     
-    func getExchange(completion: @escaping (Result<ExchangeResponse,APIError>) -> Void) {
+    func getExchange(completion: @escaping (_ result: ExchangeResponse?) -> Void) {
         
         var request = URLRequest(url: ExchangeService.exchangeUrl)
         request.httpMethod = "Get"
@@ -31,22 +31,21 @@ class ExchangeService {
             DispatchQueue.main.async {
                 
                 guard let data = data, error == nil else {
-                    completion(.failure(.error(_errorString: "Error: data corrupt")))
+                    completion(.none)
                     return
                 }
                 
                 guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                    completion(.failure(.error(_errorString: "Error: Response corrupt")))
+                    completion(.none)
                     return
                 }
                 
                 guard let responseJSON = try? JSONDecoder().decode(ExchangeResponse.self, from: data) else {
-                    completion(.failure(.error(_errorString: "Error: ResponseJson corrupt")))
+                    completion(.none)
                     return
                 }
                 
-                
-                completion(.success(responseJSON))
+                completion(.some(responseJSON))
                 print(responseJSON)
             }
         }
