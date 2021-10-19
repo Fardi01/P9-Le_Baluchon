@@ -64,7 +64,7 @@ class WeatherServiceTestCase: XCTestCase {
     }
     
     // MARK: - Je teste le cas ou j'ai des données incorrect
-    func testGetWeatherShouldPostFailedCallbackIiIncorrectData() {
+    func testGetWeatherShouldPostFailedCallbackIfiIncorrectData() {
         // Given
         let weatherService = WeatherServices(
             session: URLSessionFake(data: FakeWeatherResponseData.weatherIncorrectData, response: FakeWeatherResponseData.responseOK, error: nil))
@@ -81,7 +81,7 @@ class WeatherServiceTestCase: XCTestCase {
     }
     
     
-    // MARK: - Je teste le cas ou tous va bien
+    // MARK: - Je teste le cas ou j'ai des données correct et une reponse correcte
     
     func testGetWeatherShouldPostSuccessCallbackIfNoErrorAndCorrectData() {
         // Given

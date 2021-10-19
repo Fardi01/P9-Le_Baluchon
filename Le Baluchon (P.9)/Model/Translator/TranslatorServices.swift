@@ -12,15 +12,6 @@ class TranslateService {
     static let shared = TranslateService()
     private init() {}
     
-    enum APIError: Error {
-        case error(_errorString: String)
-    }
-    
-    enum ReverseLanguage {
-        case target(to: String)
-        case source(from: String)
-    }
-    
     private var task: URLSessionDataTask?
     
     private var session = URLSession(configuration: .default)
@@ -32,7 +23,6 @@ class TranslateService {
         
         let request = createTranslateRequest(text: text)
         
-        let session = URLSession(configuration: .default)
         task = session.dataTask(with: request) { data, response, error in
             
             DispatchQueue.main.async {

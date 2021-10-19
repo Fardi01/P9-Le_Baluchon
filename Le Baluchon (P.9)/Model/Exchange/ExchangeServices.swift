@@ -11,15 +11,14 @@ class ExchangeService {
     static let shared = ExchangeService()
     private init() {}
     
-    enum APIError: Error {
-        case error(_errorString: String)
-    }
-    
     private static let exchangeUrl = URL(string: "http://data.fixer.io/api/latest?access_key=f5375c0855f19cf1e96cab96c2b47f79")!
     
-    private var session = URLSession(configuration: .default)
-    
     private var task: URLSessionDataTask?
+    
+    private var session = URLSession(configuration: .default)
+    init(session: URLSession) {
+        self.session = session
+    }
     
     func getExchange(completion: @escaping (_ result: ExchangeResponse?) -> Void) {
         

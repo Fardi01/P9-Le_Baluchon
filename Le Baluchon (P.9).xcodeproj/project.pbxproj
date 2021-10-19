@@ -22,6 +22,12 @@
 		D656E63326F6A3A100CB918E /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D656E63226F6A3A100CB918E /* WeatherViewController.swift */; };
 		D656E63526F6AC2500CB918E /* TranslatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D656E63426F6AC2500CB918E /* TranslatorViewController.swift */; };
 		D656E63726F6AC6E00CB918E /* ExchangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D656E63626F6AC6E00CB918E /* ExchangeViewController.swift */; };
+		D6766BA2271E046B00307D58 /* FakeTranslatorResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6766BA1271E046B00307D58 /* FakeTranslatorResponseData.swift */; };
+		D6766BA4271E049A00307D58 /* TranslatorServiceTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6766BA3271E049A00307D58 /* TranslatorServiceTestCase.swift */; };
+		D6766BA6271E04C300307D58 /* Translate.json in Resources */ = {isa = PBXBuildFile; fileRef = D6766BA5271E04C300307D58 /* Translate.json */; };
+		D6766BA8271E04E400307D58 /* FakeExchangeResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6766BA7271E04E400307D58 /* FakeExchangeResponseData.swift */; };
+		D6766BAA271E050B00307D58 /* ExchangeServiceTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6766BA9271E050B00307D58 /* ExchangeServiceTestCase.swift */; };
+		D6766BAC271E052200307D58 /* Exchange.json in Resources */ = {isa = PBXBuildFile; fileRef = D6766BAB271E052100307D58 /* Exchange.json */; };
 		D691DEE227074F1200762662 /* Translator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D691DEE127074F1200762662 /* Translator.swift */; };
 		D6D7BC322714F4560030E5E3 /* Exchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D7BC312714F4560030E5E3 /* Exchange.swift */; };
 		D6EAB8C026FE69B500F57A66 /* WeatherServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EAB8BF26FE69B500F57A66 /* WeatherServices.swift */; };
@@ -68,6 +74,12 @@
 		D656E63226F6A3A100CB918E /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
 		D656E63426F6AC2500CB918E /* TranslatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslatorViewController.swift; sourceTree = "<group>"; };
 		D656E63626F6AC6E00CB918E /* ExchangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeViewController.swift; sourceTree = "<group>"; };
+		D6766BA1271E046B00307D58 /* FakeTranslatorResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeTranslatorResponseData.swift; sourceTree = "<group>"; };
+		D6766BA3271E049A00307D58 /* TranslatorServiceTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslatorServiceTestCase.swift; sourceTree = "<group>"; };
+		D6766BA5271E04C300307D58 /* Translate.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Translate.json; sourceTree = "<group>"; };
+		D6766BA7271E04E400307D58 /* FakeExchangeResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FakeExchangeResponseData.swift; path = "Le Baluchon (P.9)Tests/TranslatorTests/FakeExchangeResponseData.swift"; sourceTree = SOURCE_ROOT; };
+		D6766BA9271E050B00307D58 /* ExchangeServiceTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeServiceTestCase.swift; sourceTree = "<group>"; };
+		D6766BAB271E052100307D58 /* Exchange.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Exchange.json; sourceTree = "<group>"; };
 		D691DEE127074F1200762662 /* Translator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Translator.swift; sourceTree = "<group>"; };
 		D6D7BC312714F4560030E5E3 /* Exchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exchange.swift; sourceTree = "<group>"; };
 		D6EAB8BF26FE69B500F57A66 /* WeatherServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherServices.swift; sourceTree = "<group>"; };
@@ -196,8 +208,8 @@
 		D6766B9E271E00BE00307D58 /* WeatherTests */ = {
 			isa = PBXGroup;
 			children = (
-				D6367AE42711D8B00098D9BA /* FakeWeatherResponseData.swift */,
 				D631766226F6801700C6316C /* WeatherServiceTestCase.swift */,
+				D6367AE42711D8B00098D9BA /* FakeWeatherResponseData.swift */,
 				D6367AE62711D8CC0098D9BA /* Weather.json */,
 			);
 			path = WeatherTests;
@@ -206,6 +218,9 @@
 		D6766B9F271E00DC00307D58 /* TranslatorTests */ = {
 			isa = PBXGroup;
 			children = (
+				D6766BA3271E049A00307D58 /* TranslatorServiceTestCase.swift */,
+				D6766BA1271E046B00307D58 /* FakeTranslatorResponseData.swift */,
+				D6766BA5271E04C300307D58 /* Translate.json */,
 			);
 			path = TranslatorTests;
 			sourceTree = "<group>";
@@ -213,6 +228,9 @@
 		D6766BA0271E00ED00307D58 /* ExchangeTests */ = {
 			isa = PBXGroup;
 			children = (
+				D6766BA9271E050B00307D58 /* ExchangeServiceTestCase.swift */,
+				D6766BA7271E04E400307D58 /* FakeExchangeResponseData.swift */,
+				D6766BAB271E052100307D58 /* Exchange.json */,
 			);
 			path = ExchangeTests;
 			sourceTree = "<group>";
@@ -357,6 +375,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6766BAC271E052200307D58 /* Exchange.json in Resources */,
+				D6766BA6271E04C300307D58 /* Translate.json in Resources */,
 				D6367AE72711D8CC0098D9BA /* Weather.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -394,8 +414,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6766BA4271E049A00307D58 /* TranslatorServiceTestCase.swift in Sources */,
+				D6766BAA271E050B00307D58 /* ExchangeServiceTestCase.swift in Sources */,
 				D631766326F6801700C6316C /* WeatherServiceTestCase.swift in Sources */,
 				D6367AEB27120D2F0098D9BA /* URLSessionFake.swift in Sources */,
+				D6766BA2271E046B00307D58 /* FakeTranslatorResponseData.swift in Sources */,
+				D6766BA8271E04E400307D58 /* FakeExchangeResponseData.swift in Sources */,
 				D6367AE52711D8B00098D9BA /* FakeWeatherResponseData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
