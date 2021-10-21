@@ -10,10 +10,10 @@ import UIKit
 class WeatherViewController: UIViewController {
 
     @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var descriptionNYC: UILabel!
+    @IBOutlet weak var weatherDescriptionNYC: UILabel!
     @IBOutlet weak var weatherIcon: UIImageView!
     @IBOutlet weak var temperatureNYC: UILabel!
-    @IBOutlet weak var descriptionSTRG: UILabel!
+    @IBOutlet weak var weatherDescriptionSTRG: UILabel!
     @IBOutlet weak var temperatureSTRG: UILabel!
     @IBOutlet weak var ressentiTemp: UILabel!
     @IBOutlet weak var tempMini: UILabel!
@@ -29,18 +29,20 @@ class WeatherViewController: UIViewController {
         super.viewDidLoad()
         
         date()
-        weatherUpdate()
+        makeAPICall()
     }
 }
 
 
+// MARK: - Manage API Call
+
 extension WeatherViewController {
     
-    private func weatherUpdate() {
+    private func makeAPICall() {
         WeatherServices.shared.getWeather(urlString: newYorkWeatherURL) { (result) in
             switch result {
             case .some(let response):
-                self.updateNYC(response: response)
+                self.updateWeatherDisplayNYC(response: response)
             case .none :
                 self.presentAlert()
             }
@@ -48,19 +50,15 @@ extension WeatherViewController {
         WeatherServices.shared.getWeather(urlString: STRGWeatherURL) { (result) in
             switch result {
             case .some(let response):
-                self.updateSTRG(response: response)
+                self.updateWeatherDisplaySTRG(response: response)
             case .none:
                 self.presentAlert()
             }
         }
     }
-}
-
-
-extension WeatherViewController {
     
-    private func updateNYC(response: WeatherResponse) {
-        self.descriptionNYC.text = response.weather[0].description.capitalizingFirstLetter()
+    private func updateWeatherDisplayNYC(response: WeatherResponse) {
+        self.weatherDescriptionNYC.text = response.weather[0].description.capitalizingFirstLetter()
         self.temperatureNYC.text = "\(Int(response.main.temperature.rounded()))°C"
         self.ressentiTemp.text = "\(Int(response.main.feelsLike.rounded()))°"
         self.tempMini.text = "\(Int(response.main.tempMin.rounded()))°"
@@ -71,13 +69,19 @@ extension WeatherViewController {
         }
     }
     
-    private func updateSTRG(response: WeatherResponse) {
-        self.descriptionSTRG.text = response.weather[0].description.capitalizingFirstLetter()
+    private func updateWeatherDisplaySTRG(response: WeatherResponse) {
+        self.weatherDescriptionSTRG.text = response.weather[0].description.capitalizingFirstLetter()
         self.temperatureSTRG.text = "\(Int(response.main.temperature.rounded()))°C"
         self.tempMinSTRG.text = "Min.\(Int(response.main.tempMin.rounded()))°"
         self.tempMaxSTRG.text = "Max.\(Int(response.main.tempMax.rounded()))°"
     }
+    
+}
 
+// MARK: - Manage Present Alerte
+
+extension WeatherViewController {
+    
     private func presentAlert() {
         let alertVC = UIAlertController.init(title: "Une erreur est survenue", message: "error de chargement", preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
@@ -85,6 +89,7 @@ extension WeatherViewController {
     }
 }
 
+// MARK: - Manage date
 
 extension WeatherViewController {
     

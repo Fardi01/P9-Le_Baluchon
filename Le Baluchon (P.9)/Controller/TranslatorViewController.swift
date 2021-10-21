@@ -7,24 +7,33 @@
 
 import UIKit
 
-class TranslatorViewController: UIViewController, UITextFieldDelegate {
+class TranslatorViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
 
-    @IBOutlet weak var leftSideLabel: UILabel!
-    @IBOutlet weak var rightSideLabel: UILabel!
+    @IBOutlet weak var sourceLabel: UILabel!
+    @IBOutlet weak var targetLabel: UILabel!
     
     @IBOutlet weak var textToTranslateTextfield: UITextField!
     @IBOutlet weak var texteWasTranslatedLabel: UILabel!
     
-    var reverseButtonIsTapped: Bool = false
+    var reversalArrowButton: Bool = false
+    
+    var target: String = "en"
+    var source: String = "fr"
+    
+    var refresh = UIRefreshControl.self
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        texteWasTranslatedLabel.text = ""
+        textToTranslateTextfield.placeholder = "Écrivez votre texte ici pour le traduire en Anglais"
+        
     }
     
     // MARK: - Buttons Action
     
-    @IBAction func reverseButtonTapped(_ sender: UIButton) {
-        manageReverseButton()
+    @IBAction func reversalButtonTapped() {
+        manageReversalButton()
     }
     
     
@@ -38,46 +47,72 @@ class TranslatorViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    private func manageReverseButton() {
-        if reverseButtonIsTapped {
-            reverseButtonIsTapped = false
-            leftSideLabel.text = "Français"
-            rightSideLabel.text = "Anglais"
-        } else {
-            reverseButtonIsTapped = true
-            leftSideLabel.text = "Anglais"
-            rightSideLabel.text = "Français"
-        }
-    }
-    
 }
 
-// MARK: - Private functions
+
+// MARK: - MANAGE API CALL
 
 extension TranslatorViewController {
     
     private func makeAPICall() {
-        TranslateService.shared.getTranslation(for: textToTranslateTextfield.text ?? "") { [self] (result) in
+        TranslateService.shared.getTranslation(for: textToTranslateTextfield.text ?? "", target: target, source: source) { [self] (result) in
             switch result {
             case .some(let response):
-                self.translate(response: response)
+                self.updateTranslatorDisplay(response: response)
             case .none:
             presentAlert()
             }
         }
     }
     
-    private func translate(response: TranslationResponse) {
+    private func updateTranslatorDisplay(response: TranslationResponse) {
         if textToTranslateTextfield.text != "" {
             self.texteWasTranslatedLabel.text = response.data.translations[0].translatedText
         } else {
             texteWasTranslatedLabel.text = ""
         }
     }
-    
+
 }
 
-// MARK: - Alerts
+
+
+// MARK: - MANAGE REVERSAL BUTTON
+
+extension TranslatorViewController {
+    
+    private func manageReversalButton() {
+        if reversalArrowButton {
+            reversalArrowButton = false
+            sourceLabel.text = "Français"
+            targetLabel.text = "Anglais"
+            target = "en"
+            source = "fr"
+            textToTranslateTextfield.placeholder = "Écrivez votre texte ici pour le traduire en Anglais"
+        } else {
+            reversalArrowButton = true
+            sourceLabel.text = "Anglais"
+            targetLabel.text = "Français"
+            target = "fr"
+            source = "en"
+            textToTranslateTextfield.placeholder = "Write your text here to translate it into French"
+        }
+    }
+}
+
+// MARK: - MANAGE TEXT TRANSLATED VIEW
+
+extension TranslatorViewController {
+    func translateTextfield() {
+        if ((textToTranslateTextfield.text?.isEmpty) != nil) {
+            texteWasTranslatedLabel.text = ""
+        }
+    }
+}
+
+
+
+// MARK: - MANAGE ALERTS
 
 extension TranslatorViewController {
     
@@ -89,5 +124,7 @@ extension TranslatorViewController {
 }
 
 
-#warning("Gérer l'échange de traduction Français -> Anglais et Anglais -> Francais")
+
+
+
 #warning("Chercher comment supprimer le texte en même temps sur le texte traduit")

@@ -211,8 +211,6 @@
                     <navigationItem key="navigationItem" title="Météo" id="Aqa-JL-vYr"/>
                     <connections>
                         <outlet property="dateLabel" destination="sbC-ZM-CsI" id="sDz-LX-i3A"/>
-                        <outlet property="descriptionNYC" destination="IaS-Ii-dwx" id="kCc-TI-SKQ"/>
-                        <outlet property="descriptionSTRG" destination="mLc-xe-a3a" id="uOc-Q2-FHt"/>
                         <outlet property="ressentiTemp" destination="fhi-44-05x" id="bwe-Kd-c2i"/>
                         <outlet property="tempMaxSTRG" destination="e52-h4-daZ" id="vi2-Be-Qr2"/>
                         <outlet property="tempMaxi" destination="rCA-9E-X0f" id="uTv-AY-e7S"/>
@@ -220,6 +218,8 @@
                         <outlet property="tempMini" destination="8hk-uW-mno" id="Ifs-ty-tDW"/>
                         <outlet property="temperatureNYC" destination="Peg-e1-Mh7" id="r2Q-UQ-HhN"/>
                         <outlet property="temperatureSTRG" destination="Vtx-pe-MFJ" id="sPV-Vx-fKh"/>
+                        <outlet property="weatherDescriptionNYC" destination="IaS-Ii-dwx" id="kCc-TI-SKQ"/>
+                        <outlet property="weatherDescriptionSTRG" destination="mLc-xe-a3a" id="uOc-Q2-FHt"/>
                         <outlet property="weatherIcon" destination="oSP-W2-ZJ2" id="IjD-2U-6oX"/>
                     </connections>
                 </viewController>
@@ -266,7 +266,7 @@
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="reverseButtonTapped:" destination="gbD-WR-Q0c" eventType="touchUpInside" id="9Ch-UW-AZR"/>
+                                                            <action selector="reversalButtonTapped" destination="gbD-WR-Q0c" eventType="touchUpInside" id="LiC-2L-vXC"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Anglais" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r8K-14-VFm">
@@ -288,7 +288,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kAM-KD-HFW" userLabel="To translate View">
                                         <rect key="frame" x="0.0" y="148" width="414" height="128"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Écrivez votre texte ici pour le traduire en anglais" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wfR-Vt-Par">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Écrivez votre texte ici pour le traduire" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="wfR-Vt-Par">
                                                 <rect key="frame" x="10" y="10" width="394" height="50"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -357,8 +357,8 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Traducteur" image="text.bubble.fill" catalog="system" id="lhl-Sc-lIa"/>
                     <connections>
-                        <outlet property="leftSideLabel" destination="eH7-Dd-0Wh" id="bIj-0q-Q45"/>
-                        <outlet property="rightSideLabel" destination="r8K-14-VFm" id="3EI-WX-AGL"/>
+                        <outlet property="sourceLabel" destination="eH7-Dd-0Wh" id="bIj-0q-Q45"/>
+                        <outlet property="targetLabel" destination="r8K-14-VFm" id="3EI-WX-AGL"/>
                         <outlet property="textToTranslateTextfield" destination="wfR-Vt-Par" id="1LP-el-9Q9"/>
                         <outlet property="texteWasTranslatedLabel" destination="gXV-g7-R1z" id="Rbj-W7-IpH"/>
                     </connections>
