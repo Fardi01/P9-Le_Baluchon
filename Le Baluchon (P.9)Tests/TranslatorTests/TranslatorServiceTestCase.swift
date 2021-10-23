@@ -20,7 +20,7 @@ class TranslatorServiceTestCase: XCTestCase {
         
         // When
         let expectation = expectation(description: "Wait for queue change")
-        translationService.getTranslation(for: "https://openclassrooms.com") { result in
+        translationService.getTranslation(for: "https://openclassrooms.com", target: "en", source: "fr") { result in
             // then
             XCTAssertNil(result)
             expectation.fulfill()
@@ -37,7 +37,7 @@ class TranslatorServiceTestCase: XCTestCase {
         
         // When
         let expectation = expectation(description: "Wait for queue change")
-        translationService.getTranslation(for: "https://openclassrooms.com") { result in
+        translationService.getTranslation(for: "https://openclassrooms.com", target: "en", source: "fr") { result in
             // then
             XCTAssertNil(result)
             expectation.fulfill()
@@ -54,7 +54,7 @@ class TranslatorServiceTestCase: XCTestCase {
         
         // When
         let expectation = expectation(description: "Wait for queue change")
-        translationService.getTranslation(for: "https://openclassrooms.com") { result in
+        translationService.getTranslation(for: "https://openclassrooms.com", target: "en", source: "fr") { result in
             // then
             XCTAssertNil(result)
             expectation.fulfill()
@@ -71,7 +71,7 @@ class TranslatorServiceTestCase: XCTestCase {
         
         // When
         let expectation = expectation(description: "Wait for queue change")
-        translationService.getTranslation(for: "https://openclassrooms.com") { result in
+        translationService.getTranslation(for: "https://openclassrooms.com", target: "en", source: "fr") { result in
             // then
             XCTAssertNil(result)
             expectation.fulfill()
@@ -87,7 +87,7 @@ class TranslatorServiceTestCase: XCTestCase {
         
         // When
         let expectation = expectation(description: "Wait for queue change")
-        translationService.getTranslation(for: "https://openclassrooms.com") { result in
+        translationService.getTranslation(for: "https://openclassrooms.com", target: "en", source: "fr") { result in
             // then
             let translatedText = "Les vies des Noirs comptent"
             

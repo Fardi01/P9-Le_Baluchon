@@ -10,12 +10,11 @@ import Foundation
 class TranslateService {
     // Pattern Singleton
     static let shared = TranslateService()
-    private init() {}
     
     private var task: URLSessionDataTask?
     
     private var session = URLSession(configuration: .default)
-    init(session: URLSession) {
+    init(session: URLSession = .shared) {
         self.session = session
     }
     

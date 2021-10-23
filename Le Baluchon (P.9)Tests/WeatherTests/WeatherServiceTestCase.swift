@@ -104,5 +104,42 @@ class WeatherServiceTestCase: XCTestCase {
         
         wait(for: [expectation], timeout: 0.01)
     }
+    
+    
+    // MARK: - TEST 
+    
+    func testBadURLIsGiven() {
+        // Given
+        let weatherService = WeatherServices(session: URLSessionFake(data: FakeWeatherResponseData.weatherCorrectData, response: FakeWeatherResponseData.responseOK, error: nil))
+
+        // When
+        let expectation = XCTestExpectation(description: "wait for queue change.")
+
+
+        weatherService.getWeather(urlString: "https://openclassroom.com") { (result) in
+            XCTAssertEqual(weatherService.cacheUrl?.host, "openclassroom.com")
+            XCTAssertNotNil(result)
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 5)
+    }
+    
+    
+    // Test Ibrahima
+    func testBadURLIsGivens() {
+        // Given
+      let weatherService = WeatherServices(session: .shared)
+      
+        // When
+      let expectation = XCTestExpectation(description: "wait for queue change.")
+      weatherService.getWeather(urlString: "https://openclassroom.com") { (result) in
+        XCTAssertNil(result)
+          XCTAssertEqual(weatherService.cacheUrl?.host, "openclassroom.com")
+        expectation.fulfill()
+      }
+      
+      wait(for: [expectation], timeout: 5)
+    }
 
 }

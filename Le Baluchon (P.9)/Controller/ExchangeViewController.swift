@@ -22,11 +22,6 @@ class ExchangeViewController: UIViewController, UITextFieldDelegate {
         makeAPICall()
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        makeAPICall()
-        return true
-    }
-
     @IBAction func dismissKeyboard(_ sender: UITapGestureRecognizer) {
         eurosTextfield.resignFirstResponder()
     }
@@ -34,7 +29,7 @@ class ExchangeViewController: UIViewController, UITextFieldDelegate {
 }
 
 
-// MARK: - Call API Functions
+// MARK: - CALL API FONCTIONS
 
 extension ExchangeViewController {
     
@@ -69,8 +64,24 @@ extension ExchangeViewController {
 }
 
 
+// MARK: - MANAGE TEXTFIELDS
 
-// MARK: - Present UIAlert
+extension ExchangeViewController {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        makeAPICall()
+        return true
+    }
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        guard let text = textField.text else { return }
+        if text.isEmpty { dollarLabel.text = "\(round(expectedValue * 100) / 100)" }
+    }
+}
+
+
+
+// MARK: - PRESENTE ALERTS
 
 extension ExchangeViewController {
     
@@ -80,5 +91,3 @@ extension ExchangeViewController {
         present(alertVC, animated: true, completion: nil)
     }
 }
-
-#warning("Chercher comment supprimer en même temps le nombre converti")

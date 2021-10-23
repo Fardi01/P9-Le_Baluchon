@@ -11,6 +11,7 @@ class URLSessionFake: URLSession {
     var data: Data?
     var response: URLResponse?
     var error: Error?
+    static var cacheUrl: URL?
     
     init(data: Data?, response: URLResponse?, error: Error?) {
         self.data = data
@@ -19,6 +20,7 @@ class URLSessionFake: URLSession {
     }
     
     override func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+        URLSessionFake.cacheUrl = url
         let task = URLSessionDataTaskFake()
         task.completionHandler = completionHandler
         task.data = data

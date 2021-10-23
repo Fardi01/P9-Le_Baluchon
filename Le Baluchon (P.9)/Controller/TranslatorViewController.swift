@@ -15,19 +15,19 @@ class TranslatorViewController: UIViewController, UITextFieldDelegate, UITextVie
     @IBOutlet weak var textToTranslateTextfield: UITextField!
     @IBOutlet weak var texteWasTranslatedLabel: UILabel!
     
-    var reversalArrowButton: Bool = false
+    private var reversalArrowButton: Bool = false
     
-    var target: String = "en"
-    var source: String = "fr"
+    private var target: String = "en"
+    private var source: String = "fr"
     
-    var refresh = UIRefreshControl.self
+    private var text1 = ""
+    private var text2 = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         texteWasTranslatedLabel.text = ""
         textToTranslateTextfield.placeholder = "Écrivez votre texte ici pour le traduire en Anglais"
-        
     }
     
     // MARK: - Buttons Action
@@ -39,12 +39,6 @@ class TranslatorViewController: UIViewController, UITextFieldDelegate, UITextVie
     
     @IBAction func dismissKeyboard(_ sender: UITapGestureRecognizer) {
         textToTranslateTextfield.resignFirstResponder()
-    }
-    
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        makeAPICall()
-        return true
     }
     
 }
@@ -67,6 +61,8 @@ extension TranslatorViewController {
     
     private func updateTranslatorDisplay(response: TranslationResponse) {
         if textToTranslateTextfield.text != "" {
+            text1 = textToTranslateTextfield.text ?? ""
+            text2 = response.data.translations[0].translatedText
             self.texteWasTranslatedLabel.text = response.data.translations[0].translatedText
         } else {
             texteWasTranslatedLabel.text = ""
@@ -97,16 +93,29 @@ extension TranslatorViewController {
             source = "en"
             textToTranslateTextfield.placeholder = "Write your text here to translate it into French"
         }
+        if textToTranslateTextfield.text?.isEmpty == false {
+          let text3 = text1
+          text1 = text2
+          text2 = text3
+          textToTranslateTextfield.text = text1
+          texteWasTranslatedLabel.text = text2
+        }
     }
 }
 
-// MARK: - MANAGE TEXT TRANSLATED VIEW
+
+// MARK: - MANAGE TEXTFIELD
 
 extension TranslatorViewController {
-    func translateTextfield() {
-        if ((textToTranslateTextfield.text?.isEmpty) != nil) {
-            texteWasTranslatedLabel.text = ""
-        }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        makeAPICall()
+        return true
+    }
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        guard let text = textField.text else { return }
+        if text.isEmpty { texteWasTranslatedLabel.text = "" }
     }
 }
 
@@ -123,8 +132,3 @@ extension TranslatorViewController {
     }
 }
 
-
-
-
-
-#warning("Chercher comment supprimer le texte en même temps sur le texte traduit")

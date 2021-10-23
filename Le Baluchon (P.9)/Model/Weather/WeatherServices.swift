@@ -10,14 +10,15 @@ import Foundation
 class WeatherServices {
     
     static let shared = WeatherServices()
-    private init() {}
     
     private var task: URLSessionDataTask?
     
     private var session = URLSession(configuration: .default)
-    init(session: URLSession) {
+    init(session: URLSession = .shared) {
         self.session = session
     }
+    
+    var cacheUrl = URL(string: "https://openclassroom.com")
     
     func getWeather(urlString: String, completion: @escaping (_ result: WeatherResponse?) -> Void) {
         
