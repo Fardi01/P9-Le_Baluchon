@@ -11,7 +11,7 @@ import XCTest
 
 class ExchangeServiceTestCase: XCTestCase {
     
-    // MARK: - ❌ Failed: Je teste que il y'a une erreur (Et que j'ai le call back d'erreur)
+    // MARK: - ❌ Failed: Test if callback Error
  
     func test_GetExchange_Should_Post_Failed_Callback_IfError() {
         // Given
@@ -28,7 +28,7 @@ class ExchangeServiceTestCase: XCTestCase {
         wait(for: [expectation], timeout: 0.01)
     }
     
-    // MARK: - ❌ Failed: Je teste le cas ou il n'ya pas de donnée, pas de reponse et pas d'erreur
+    // MARK: - ❌ Failed: No Datas, No Responses and No Errors
     
     func test_GetExchange_Should_Post_Failed_Callback_If_NoData() {
         // Given
@@ -46,7 +46,7 @@ class ExchangeServiceTestCase: XCTestCase {
     }
     
     
-    // MARK: - ❌ Failed: Je teste la cas ou je reçois une reponse incorrect
+    // MARK: - ❌ Failed: Incorrect Responses
     
     func test_GetExchange_Should_Post_Failed_Callback_If_Incorrect_Response() {
         // Given
@@ -64,7 +64,7 @@ class ExchangeServiceTestCase: XCTestCase {
     }
     
     
-    // MARK: - ❌ Failed: Je teste le cas ou j'ai des données incorrect
+    // MARK: - ❌ Failed: Incorrect Datas
     
     func test_GetExchange_Should_Post_Failed_Callback_If_Incorrect_Data() {
         // Given
@@ -83,7 +83,7 @@ class ExchangeServiceTestCase: XCTestCase {
     
     
     
-    // MARK: - ✅ Success : Je teste le cas ou j'ai des données correct et une reponse correcte
+    // MARK: - ✅ Success : Correct datas and correct responses
     
     func test_GetExchange_Should_Post_Success_Callback_If_Correct_Data_And_Correct_Response() {
         // Given

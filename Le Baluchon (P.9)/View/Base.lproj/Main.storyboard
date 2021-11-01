@@ -211,7 +211,7 @@
                     <navigationItem key="navigationItem" title="Météo" id="Aqa-JL-vYr"/>
                     <connections>
                         <outlet property="dateLabel" destination="sbC-ZM-CsI" id="sDz-LX-i3A"/>
-                        <outlet property="ressentiTemp" destination="fhi-44-05x" id="bwe-Kd-c2i"/>
+                        <outlet property="feelTemp" destination="fhi-44-05x" id="bwe-Kd-c2i"/>
                         <outlet property="tempMaxSTRG" destination="e52-h4-daZ" id="vi2-Be-Qr2"/>
                         <outlet property="tempMaxi" destination="rCA-9E-X0f" id="uTv-AY-e7S"/>
                         <outlet property="tempMinSTRG" destination="K7D-9N-EU8" id="sfn-sT-p8Z"/>

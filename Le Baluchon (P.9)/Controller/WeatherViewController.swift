@@ -15,7 +15,7 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var temperatureNYC: UILabel!
     @IBOutlet weak var weatherDescriptionSTRG: UILabel!
     @IBOutlet weak var temperatureSTRG: UILabel!
-    @IBOutlet weak var ressentiTemp: UILabel!
+    @IBOutlet weak var feelTemp: UILabel!
     @IBOutlet weak var tempMini: UILabel!
     @IBOutlet weak var tempMaxi: UILabel!
     @IBOutlet weak var tempMinSTRG: UILabel!
@@ -34,7 +34,7 @@ class WeatherViewController: UIViewController {
 }
 
 
-// MARK: - Manage API Call
+// MARK: - MANAGE APICALL
 
 extension WeatherViewController {
     
@@ -60,7 +60,7 @@ extension WeatherViewController {
     private func updateWeatherDisplayNYC(response: WeatherResponse) {
         self.weatherDescriptionNYC.text = response.weather[0].description.capitalizingFirstLetter()
         self.temperatureNYC.text = "\(Int(response.main.temperature.rounded()))°C"
-        self.ressentiTemp.text = "\(Int(response.main.feelsLike.rounded()))°"
+        self.feelTemp.text = "\(Int(response.main.feelsLike.rounded()))°"
         self.tempMini.text = "\(Int(response.main.tempMin.rounded()))°"
         self.tempMaxi.text = "\(Int(response.main.tempMax.rounded()))°"
         
@@ -78,18 +78,18 @@ extension WeatherViewController {
     
 }
 
-// MARK: - Manage Present Alerte
+// MARK: - PRESENTE ALERTS
 
 extension WeatherViewController {
     
     private func presentAlert() {
-        let alertVC = UIAlertController.init(title: "Une erreur est survenue", message: "error de chargement", preferredStyle: .alert)
+        let alertVC = UIAlertController.init(title: "Une erreur est survenue", message: "erreur de chargement", preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(alertVC, animated: true, completion: nil)
     }
 }
 
-// MARK: - Manage date
+// MARK: - MANAGE DATE
 
 extension WeatherViewController {
     

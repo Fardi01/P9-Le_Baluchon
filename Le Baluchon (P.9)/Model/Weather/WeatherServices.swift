@@ -18,21 +18,15 @@ class WeatherServices {
         self.session = session
     }
     
-    var cacheUrl = URL(string: "https://openclassroom.com")
-    
     func getWeather(urlString: String, completion: @escaping (_ result: WeatherResponse?) -> Void) {
         
-        guard let url = URL(string: urlString) else {
-            completion(.none)
-            return
-        }
+        let url = URL(string: urlString)!
         
         let request = URLRequest(url: url)
         
         task = session.dataTask(with: request) { data, response, error in
             
             DispatchQueue.main.async {
-                
                 
                 guard let data = data, error == nil else {
                     completion(.none)

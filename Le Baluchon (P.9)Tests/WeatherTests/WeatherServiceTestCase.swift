@@ -10,7 +10,8 @@ import XCTest
 
 class WeatherServiceTestCase: XCTestCase {
     
-    // MARK: - Je teste que il y'a une erreur (Et que j'ai le call back d'erreur)
+    // MARK: - ❌ Failed: Test if callback Error
+    
     func testGetWeatherShouldPostFailedCallbackIfError() {
         // Given
         let weatherService = WeatherServices(
@@ -28,7 +29,8 @@ class WeatherServiceTestCase: XCTestCase {
     }
     
     
-    // MARK: - Je teste le cas ou il n'ya pas de donnée
+    // MARK: - ❌ Failed: No Datas, No Responses and No Errors
+    
     func testGetWeatherShouldPostFailedCallbackIfNoData() {
         // Given
         let weatherService = WeatherServices(
@@ -46,7 +48,8 @@ class WeatherServiceTestCase: XCTestCase {
     }
     
     
-    // MARK: - Je teste la cas ou je reçois une reponse incorrect
+    // MARK: - ❌ Failed: Incorrect Responses
+    
     func testGetWeatherShouldPostFailedCallbackIfIncorrectResponse() {
         // Given
         let weatherService = WeatherServices(
@@ -63,7 +66,8 @@ class WeatherServiceTestCase: XCTestCase {
         wait(for: [expectation], timeout: 0.01)
     }
     
-    // MARK: - Je teste le cas ou j'ai des données incorrect
+    // MARK: - ❌ Failed: Incorrect Datas
+    
     func testGetWeatherShouldPostFailedCallbackIfiIncorrectData() {
         // Given
         let weatherService = WeatherServices(
@@ -81,7 +85,7 @@ class WeatherServiceTestCase: XCTestCase {
     }
     
     
-    // MARK: - Je teste le cas ou j'ai des données correct et une reponse correcte
+    // MARK: - ✅ Success : Correct datas and correct responses
     
     func testGetWeatherShouldPostSuccessCallbackIfNoErrorAndCorrectData() {
         // Given
@@ -105,41 +109,4 @@ class WeatherServiceTestCase: XCTestCase {
         wait(for: [expectation], timeout: 0.01)
     }
     
-    
-    // MARK: - TEST 
-    
-    func testBadURLIsGiven() {
-        // Given
-        let weatherService = WeatherServices(session: URLSessionFake(data: FakeWeatherResponseData.weatherCorrectData, response: FakeWeatherResponseData.responseOK, error: nil))
-
-        // When
-        let expectation = XCTestExpectation(description: "wait for queue change.")
-
-
-        weatherService.getWeather(urlString: "https://openclassroom.com") { (result) in
-            XCTAssertEqual(weatherService.cacheUrl?.host, "openclassroom.com")
-            XCTAssertNotNil(result)
-            expectation.fulfill()
-        }
-
-        wait(for: [expectation], timeout: 5)
-    }
-    
-    
-    // Test Ibrahima
-    func testBadURLIsGivens() {
-        // Given
-      let weatherService = WeatherServices(session: .shared)
-      
-        // When
-      let expectation = XCTestExpectation(description: "wait for queue change.")
-      weatherService.getWeather(urlString: "https://openclassroom.com") { (result) in
-        XCTAssertNil(result)
-          XCTAssertEqual(weatherService.cacheUrl?.host, "openclassroom.com")
-        expectation.fulfill()
-      }
-      
-      wait(for: [expectation], timeout: 5)
-    }
-
 }

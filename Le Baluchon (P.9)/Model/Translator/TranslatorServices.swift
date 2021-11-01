@@ -8,7 +8,7 @@
 import Foundation
 
 class TranslateService {
-    // Pattern Singleton
+
     static let shared = TranslateService()
     
     private var task: URLSessionDataTask?
@@ -47,8 +47,7 @@ class TranslateService {
         task?.resume()
     }
     
-    // MARK: - Private Func
-    
+
     private func createTranslateRequest(text: String, target: String, source: String) -> URLRequest {
         let baseURLString = "https://translation.googleapis.com/language/translate/v2"
         var components = URLComponents(string: baseURLString)!

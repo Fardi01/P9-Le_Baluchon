@@ -30,7 +30,7 @@ class TranslatorViewController: UIViewController, UITextFieldDelegate, UITextVie
         textToTranslateTextfield.placeholder = "Écrivez votre texte ici pour le traduire en Anglais"
     }
     
-    // MARK: - Buttons Action
+    // MARK: - BUTTONS ACTION
     
     @IBAction func reversalButtonTapped() {
         manageReversalButton()
@@ -121,12 +121,12 @@ extension TranslatorViewController {
 
 
 
-// MARK: - MANAGE ALERTS
+// MARK: - PRESENTE ALERTS
 
 extension TranslatorViewController {
     
     private func presentAlert() {
-        let alertVC = UIAlertController.init(title: "Une erreur est survenue", message: "error de chargement", preferredStyle: .alert)
+        let alertVC = UIAlertController.init(title: "Une erreur est survenue", message: "erreur de chargement", preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(alertVC, animated: true, completion: nil)
     }
