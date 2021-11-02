@@ -34,7 +34,7 @@ class WeatherViewController: UIViewController {
 }
 
 
-// MARK: - MANAGE APICALL
+// MARK: - MANAGE API CALL
 
 extension WeatherViewController {
     
